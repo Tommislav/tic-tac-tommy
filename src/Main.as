@@ -4,6 +4,7 @@ package
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
+	import se.salomonsson.ttt.TicTacTommyContext;
 	
 	/**
 	 * ...
@@ -11,6 +12,7 @@ package
 	 */
 	public class Main extends Sprite 
 	{
+		private var _ticTacTommyContext:TicTacTommyContext;
 		
 		public function Main():void 
 		{
@@ -25,6 +27,9 @@ package
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
+			
+			// Here we go...
+			_ticTacTommyContext = new TicTacTommyContext(this);
 		}
 		
 	}
