@@ -1,0 +1,182 @@
+<project name="Tic-tac-tommy" basedir="." default="run">
+	
+	<property file="build.properties"/>
+    <taskdef resource="flexTasks.tasks" classpath="${flex.tasks}"/>
+	
+	<property name="project.dir" value="./.."/>
+	<property name="debug" value="true"/>
+	<property name="bin" value="bin" />
+	
+	<target name="test">
+		<sequential>
+			<compile src="test/Main.as" output="unittest.swf" />
+			<exec executable="${flash.player}">
+				<arg line="${project.dir}/bin/unittest.swf" />
+			</exec>
+		</sequential>
+	</target>
+	
+	<target name="run">
+		<printinfo name="NOT IMPLEMENTED YET" />
+	</target>
+	<!--
+	<target name="all">
+		<sequential>
+			<compileWithPreloader className="TestPlayer" />
+			<compileWithPreloader className="HmDefaultPlayer" />
+			<compileSwc />
+		</sequential>
+	</target>
+	
+	<target name="release" depends="version">
+		<sequential>
+			<compileWithPreloader className="TestPlayer" debug="false" bin="bin/release" />
+			<compileWithPreloader className="HmDefaultPlayer" debug="false" bin="bin/release" />
+			<compileSwc debug="false" output="release/videomodule.swc" />
+			<antcall target="asdoc" />
+		</sequential>
+	</target>
+	-->
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<macrodef name="printinfo">
+		<attribute name="name" default="???" />
+		<attribute name="src" default="" />
+		<attribute name="output" default="???" />
+		<attribute name="debug" default="???" />
+		<sequential>
+			<echo></echo>
+			<echo></echo>
+			<echo></echo>
+			<echo>##################################################</echo>
+			<echo>############# @{name} #######</echo>
+			<echo>##################################################</echo>
+			<echo>###</echo>
+			<echo>### SOURCE: '@{src}'</echo>
+			<echo>### OUTPUT: '@{output}'</echo>
+			<echo>###</echo>
+			<echo>### DEBUG: @{debug}</echo>
+			<echo>###</echo>
+			<echo>### FLEX_HOME ${FLEX_HOME}</echo>
+			<echo>### flexTasks.jar ${flex.tasks}</echo>
+			<echo>### player version ${player.version}</echo>
+			<echo>###</echo>
+			<echo>######################################</echo>
+			<echo>###</echo>
+			<echo></echo>
+		</sequential>
+	</macrodef>
+	
+	
+	
+	<macrodef name="compile">
+		<attribute name="src" default="NOT SET"/>
+		<attribute name="output" default="NOT SET"/>
+		<attribute name="debug" default="true" />
+		<attribute name="version" default="main" />
+		<sequential>
+		
+			<printinfo name="Compile swf" src="'@{src}" output="@{output}" debug="@{debug}" />
+			
+			<mxmlc 	file="${project.dir}/@{src}" 
+					use-network="true" 
+					debug="@{debug}" 
+					keep-generated-actionscript="false" 
+					output="${project.dir}/bin/@{output}" 
+					incremental="true" 
+					benchmark="false" 
+					verbose-stacktraces="@{debug}" 
+					static-link-runtime-shared-libraries="true"
+					target-player="${player.version}" >
+				<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+				<load-config filename="${project.config}"/>
+			</mxmlc>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="compileWithPreloader">
+		<attribute name="preloader" default="src/StandAlonePreloader.as"/>
+		<attribute name="className" default="NOT SET"/>
+		<attribute name="output" default="NOT SET"/>
+		<attribute name="debug" default="${debug}" />
+		<attribute name="bin" default="bin" />
+		
+		<sequential>
+			<printinfo name="Compile with preloader" src="'@{className}.as" output="@{bin}/@{className}.swf" debug="@{debug}" />
+			
+			<mxmlc 	file="${project.dir}/@{preloader}" 
+					use-network="true" 
+					debug="@{debug}" 
+					keep-generated-actionscript="false" 
+					output="${project.dir}/@{bin}/@{className}.swf" 
+					incremental="true" 
+					benchmark="false" 
+					verbose-stacktraces="@{debug}" 
+					static-link-runtime-shared-libraries="true"
+					target-player="${player.version}">
+			
+				<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+				<load-config filename="${project.dir}/ant/videoplayerbuildconfig.xml"/>
+				
+				<define name="CONFIG::startFrame" value="'@{className}'" />
+				<frame label="start" classname="@{className}" />
+			</mxmlc>
+		</sequential>
+	</macrodef>
+	
+	<macrodef name="compileSwc">
+		<attribute name="debug" default="true"/>
+		<sequential>
+			<printinfo name="Compile SWC" src="the src folder" output="${project.swc.out}" debug="@{debug}" />
+			
+			<compc output="${project.swc.out}"  target-player="${target.player}" incremental="true" debug="@{debug}" show-actionscript-warnings="false">
+				<compiler.source-path path-element="${project.dir}/src" />
+				
+				<compiler.library-path dir="${project.dir}/lib" append="true">
+					<!--<include name="lib.swc" />-->
+				</compiler.library-path>
+				
+				<compiler.external-library-path dir="${project.dir}/lib"><!--<include name="lib.swc" />--></compiler.external-library-path>
+				<compiler.external-library-path dir="${FLEX_HOME}/frameworks/libs/player/${target.player}"><include name="playerglobal.swc" /></compiler.external-library-path>
+				<compiler.external-library-path dir="${FLEX_HOME}/frameworks/libs"><!--<include name="framework.swc" />--></compiler.external-library-path>
+			</compc>
+		</sequential>
+	</macrodef>
+	
+	<target name="swc">
+		<compileSwc />
+	</target>
+	
+	<target name="asdoc">
+		<sequential>
+			<delete dir="${doc.out}" />
+			<mkdir dir="${doc.out}" />
+			
+			<asdoc output="${doc.out}" lenient="false" failonerror="false" package-description-file="${project.dir}/src/package_asdoc_descr.xml" target-player="${player.version}">
+				<compiler.source-path path-element="${project.dir}/src" />
+				
+				<doc-sources path-element="${project.dir}/src/se/salomonsson" />
+				<exclude-sources path-element="${project.dir}/src/se/salomonsson/ClassToExclude.as" />
+				
+				<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
+				<load-config filename="${project.dir}/ant/videoplayerbuildconfig.xml"/>
+				
+			</asdoc>
+		</sequential>
+	</target>
+	
+	<target name="version">
+		<input message="Compiled with framework version: x.x.x(.x(x))" defaultvalue="-UNVERSIONIZED" addproperty="application.version" />
+		<replaceregexp file="${project.dir}/src/compile-version.xml" match="version&gt;(.*)&lt;/version" replace="version&gt;${application.version}&lt;/version" />
+	</target>
+	
+</project>
