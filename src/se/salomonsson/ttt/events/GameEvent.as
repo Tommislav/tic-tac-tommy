@@ -11,6 +11,7 @@ package se.salomonsson.ttt.events
 	{
 		public static const CELL_SELECTED:String = "cellSelected";
 		public static const REQUEST_GRID_RE_RENDER:String = "requestGridReRender";
+		public static const RESET_GAME:String = "resetGame";
 		
 		private var _cell:Point;
 		public function get cell():Point { return _cell; }
