@@ -8,7 +8,8 @@ package se.salomonsson.ttt.controllers
 	import se.salomonsson.ttt.model.PlayersModel;
 	
 	/**
-	 * ...
+	 * This is the command that reacts to the request that a player has made a move.
+	 * Will check if it is a valid move, will check if someone won or pass the turn to the next player.
 	 * @author Tommislav
 	 */
 	public class UpdateGridStateCommand extends Command 
@@ -22,6 +23,9 @@ package se.salomonsson.ttt.controllers
 		[Inject]
 		public var event:GameEvent;
 		
+		
+		
+		
 		override public function execute():void 
 		{
 			if (event == null)
@@ -33,12 +37,18 @@ package se.salomonsson.ttt.controllers
 			if (isValidMove(newPosition.x, newPosition.y))
 			{
 				var currentPlayer:int = playerModel.currentPlayerId;
-				gridModel.setValue( newPosition.x, newPosition.y, currentPlayer );
+				gridModel.setValue( newPosition.x, newPosition.y, currentPlayer ); // update value on model
 				
-				playerModel.nextPlayer();
+				// todo: check if we have a winner, else pass the turn to next player
+				
 				
 				// update visual GUI
 				dispatch( new GameEvent( GameEvent.REQUEST_GRID_RE_RENDER ) );
+				
+				
+				// new players turn
+				playerModel.nextPlayer();
+				dispatch( new GameEvent( GameEvent.PLAYER_TURN_CHANGED ) );
 			}
 		}
 		

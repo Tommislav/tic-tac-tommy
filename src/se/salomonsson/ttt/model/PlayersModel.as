@@ -29,6 +29,8 @@ package se.salomonsson.ttt.model
 				_currentPlayer = 0;
 		}
 		
+		public function setCurrentPlayerIndex(index:int):void { _currentPlayer = index; }
+		
 		public function addPlayer( name:String, type:PlayerType ):void
 		{
 			var vo:PlayerVO = new PlayerVO();
