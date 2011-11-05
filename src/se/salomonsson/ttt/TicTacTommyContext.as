@@ -2,6 +2,7 @@ package se.salomonsson.ttt
 {
 	import flash.display.DisplayObjectContainer;
 	import org.robotlegs.mvcs.Context;
+	import se.salomonsson.ttt.controllers.UpdateGridCommand;
 	import se.salomonsson.ttt.events.ApplicationEvent;
 	import se.salomonsson.ttt.mediator.GridViewMediator;
 	import se.salomonsson.ttt.model.GridModel;
@@ -21,8 +22,13 @@ package se.salomonsson.ttt
 		
 		override public function startup():void 
 		{
-			trace("start up");
+			// Map views
 			mediatorMap.mapView( GridView, GridViewMediator );
+			
+			// Map commands
+			commandMap.mapEvent( ApplicationEvent.START_UP, UpdateGridCommand ); // update grid at startup
+			
+			// Injections
 			injector.mapSingleton( GridModel );
 			
 			

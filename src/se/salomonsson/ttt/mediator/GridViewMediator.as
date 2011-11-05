@@ -1,33 +1,39 @@
 package se.salomonsson.ttt.mediator 
 {
 	import org.robotlegs.mvcs.Mediator;
+	import se.salomonsson.ttt.events.RenderGridEvent;
 	import se.salomonsson.ttt.model.GridModel;
 	import se.salomonsson.ttt.view.IGridView;
+	import se.salomonsson.ttt.vo.GridVO;
 	
 	/**
-	 * ...
+	 * Mediator for the grid view
 	 * @author Tommislav
 	 */
 	public class GridViewMediator extends Mediator 
 	{
-		[Inject] public var gridModel:GridModel;
-		
 		private var _gridView:IGridView;
-		
 		
 		override public function onRegister():void 
 		{
-			trace("onRegister!");
-			
+			// Get typed reference to the view we are connected to
 			_gridView = this.viewComponent as IGridView;
 			
-			// Make view draw itself to match the initial state of the model
-			_gridView.drawGrid( gridModel.cellsW, gridModel.cellsH, gridModel.grid );
+			
+			addContextListener( RenderGridEvent.RENDER, renderGrid, RenderGridEvent );
 		}
 		
 		override public function onRemove():void 
 		{
 			
+		}
+		
+		
+		
+		private function renderGrid(e:RenderGridEvent):void
+		{
+			var vo:GridVO = e.gridVO;
+			_gridView.drawGrid( vo.numberOfHorisontalCells, vo.numberOfVerticalCells, vo.grid );
 		}
 	}
 
