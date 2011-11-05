@@ -7,8 +7,8 @@ package se.salomonsson.ttt.vo
 	public class GridVO 
 	{
 		public var grid:Array;
-		public var numberOfHorisontalCells:uint;
-		public var numberOfVerticalCells:uint;
+		public var numberOfCellsHorizontal:uint;
+		public var numberOfCellsVertical:uint;
 	}
 
 }

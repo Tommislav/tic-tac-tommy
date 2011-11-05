@@ -9,7 +9,7 @@ package se.salomonsson.ttt.controllers
 	 * Command that will fetch the current layout of the grid and dispatch a redraw-grid event
 	 * @author Tommislav
 	 */
-	public class UpdateGridCommand extends Command 
+	public class RenderGridCommand extends Command 
 	{
 		[Inject]
 		public var gridModel:GridModel;
@@ -18,8 +18,8 @@ package se.salomonsson.ttt.controllers
 		{
 			var vo:GridVO 				= new GridVO();
 			vo.grid 					= gridModel.grid;
-			vo.numberOfHorisontalCells 	= gridModel.cellsW;
-			vo.numberOfVerticalCells 	= gridModel.cellsH;
+			vo.numberOfCellsHorizontal 	= gridModel.numberOfCellsHorizontal;
+			vo.numberOfCellsVertical 	= gridModel.numberOfCellsVertical;
 			
 			dispatch( new RenderGridEvent( RenderGridEvent.RENDER, vo ) );
 		}

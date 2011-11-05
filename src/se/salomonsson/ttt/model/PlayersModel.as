@@ -16,6 +16,8 @@ package se.salomonsson.ttt.model
 			_players = new Array();
 		}
 		
+		public function get numberOfPlayers():int { return _players.length; }
+		
 		public function addPlayer( name:String, type:PlayerType )
 		{
 			// ... add a new player to the game and assign a symbol!

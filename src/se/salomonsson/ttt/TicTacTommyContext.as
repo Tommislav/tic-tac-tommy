@@ -2,14 +2,14 @@ package se.salomonsson.ttt
 {
 	import flash.display.DisplayObjectContainer;
 	import org.robotlegs.mvcs.Context;
-	import se.salomonsson.ttt.controllers.UpdateGridCommand;
+	import se.salomonsson.ttt.controllers.RenderGridCommand;
 	import se.salomonsson.ttt.events.ApplicationEvent;
 	import se.salomonsson.ttt.mediator.GridViewMediator;
 	import se.salomonsson.ttt.model.GridModel;
 	import se.salomonsson.ttt.view.GridView;
 	
 	/**
-	 * ...
+	 * Map all dependencies in the application.
 	 * @author Tommislav
 	 */
 	public class TicTacTommyContext extends Context 
@@ -26,7 +26,7 @@ package se.salomonsson.ttt
 			mediatorMap.mapView( GridView, GridViewMediator );
 			
 			// Map commands
-			commandMap.mapEvent( ApplicationEvent.START_UP, UpdateGridCommand ); // update grid at startup
+			commandMap.mapEvent( ApplicationEvent.START_UP, RenderGridCommand ); // update grid at startup
 			
 			// Injections
 			injector.mapSingleton( GridModel );
