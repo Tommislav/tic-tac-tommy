@@ -10,6 +10,7 @@ package se.salomonsson.ttt.events
 	public class GameEvent extends Event 
 	{
 		public static const CELL_SELECTED:String = "cellSelected";
+		public static const REQUEST_GRID_RE_RENDER:String = "requestGridReRender";
 		
 		private var _cell:Point;
 		public function get cell():Point { return _cell; }

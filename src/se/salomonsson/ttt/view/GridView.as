@@ -52,6 +52,9 @@ package se.salomonsson.ttt.view
 			
 			for (var i:int = 0; i < cells.length; i++ )
 			{
+				var col:uint = (cells[i] == 0) ? 0xffffff : 0xffcc00;
+				this.graphics.beginFill( col, 1 );
+				
 				var y:Number = Math.floor(i / numCellsHorizontal) * _cellWidth;
 				var x:Number = (i % numCellsHorizontal) * _cellWidth;
 				this.graphics.drawRect( x, y, _cellWidth, _cellHeight );

@@ -33,7 +33,6 @@ package se.salomonsson.ttt.mediator
 		
 		private function onCellClicked():void 
 		{
-			trace("Clicked cell " + _gridView.lastClickedCell);
 			dispatch( new GameEvent( GameEvent.CELL_SELECTED, _gridView.lastClickedCell.clone() ) );
 		}
 		
