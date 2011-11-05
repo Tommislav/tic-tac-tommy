@@ -17,9 +17,14 @@ package se.salomonsson.ttt.model
 		
 		public function GridModel(numberOfCellsHorizontal:uint=3, numberOfCellsVertical:uint=3) 
 		{
+			setGridSize( numberOfCellsHorizontal, numberOfCellsVertical );
+			clearGrid();
+		}
+		
+		public function setGridSize(numberOfCellsHorizontal:uint = 3, numberOfCellsVertical:uint = 3):void
+		{
 			_cellsX = numberOfCellsHorizontal;
 			_cellsY = numberOfCellsVertical;
-			clearGrid();
 		}
 		
 		public function clearGrid():void 

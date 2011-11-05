@@ -5,6 +5,7 @@ package se.salomonsson.ttt.controllers
 	import se.salomonsson.ttt.events.GameEvent;
 	import se.salomonsson.ttt.events.RenderGridEvent;
 	import se.salomonsson.ttt.model.GridModel;
+	import se.salomonsson.ttt.model.PlayersModel;
 	
 	/**
 	 * ...
@@ -14,6 +15,9 @@ package se.salomonsson.ttt.controllers
 	{
 		[Inject]
 		public var gridModel:GridModel;
+		
+		[Inject]
+		public var playerModel:PlayersModel;
 		
 		[Inject]
 		public var event:GameEvent;
@@ -26,18 +30,25 @@ package se.salomonsson.ttt.controllers
 			var newPosition:Point = event.cell;
 			
 			// Make sure it's a valid move
-			if (newPosition.x < 0 || newPosition.x >= gridModel.numberOfCellsHorizontal || 
-				newPosition.y < 0 || newPosition.y >= gridModel.numberOfCellsVertical ||
-				gridModel.getValue( newPosition.x, newPosition.y ) != 0)
+			if (isValidMove(newPosition.x, newPosition.y))
 			{
-				// invalid move, quit!
-				return;
+				var currentPlayer:int = playerModel.currentPlayerId;
+				gridModel.setValue( newPosition.x, newPosition.y, currentPlayer );
+				
+				playerModel.nextPlayer();
+				
+				// update visual GUI
+				dispatch( new GameEvent( GameEvent.REQUEST_GRID_RE_RENDER ) );
 			}
+		}
+		
+		private function isValidMove(x:int, y:int):Boolean
+		{
+			var validSpanX:Boolean 		= (x >= 0 || x < gridModel.numberOfCellsHorizontal);
+			var validSpanY:Boolean 		= (y >= 0 || y < gridModel.numberOfCellsVertical);
+			var cellIsEmpty:Boolean 	= (gridModel.getValue( x, y ) == 0);
 			
-			gridModel.setValue( newPosition.x, newPosition.y, 1 );
-			
-			// update visual GUI
-			dispatch( new GameEvent( GameEvent.REQUEST_GRID_RE_RENDER ) );
+			return (validSpanX && validSpanY && cellIsEmpty);
 		}
 	}
 

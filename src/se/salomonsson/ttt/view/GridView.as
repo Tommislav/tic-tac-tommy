@@ -50,10 +50,12 @@ package se.salomonsson.ttt.view
 			this.graphics.lineStyle( 1, 0x000000 );
 			this.graphics.beginFill( 0xffffff, 1 );
 			
+			var colors:Array = [0xffffff, 0xffcc00, 0xff00cc];
+			
 			for (var i:int = 0; i < cells.length; i++ )
 			{
-				var col:uint = (cells[i] == 0) ? 0xffffff : 0xffcc00;
-				this.graphics.beginFill( col, 1 );
+				var cellValue:int = cells[i];
+				this.graphics.beginFill( colors[cellValue], 1 );
 				
 				var y:Number = Math.floor(i / numCellsHorizontal) * _cellWidth;
 				var x:Number = (i % numCellsHorizontal) * _cellWidth;

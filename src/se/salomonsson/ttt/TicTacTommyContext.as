@@ -5,12 +5,14 @@ package se.salomonsson.ttt
 	import org.robotlegs.mvcs.Context;
 	import se.salomonsson.ttt.controllers.RenderGridCommand;
 	import se.salomonsson.ttt.controllers.ResetGameCommand;
+	import se.salomonsson.ttt.controllers.StartNewGameCommand;
 	import se.salomonsson.ttt.controllers.UpdateGridStateCommand;
 	import se.salomonsson.ttt.events.ApplicationEvent;
 	import se.salomonsson.ttt.events.GameEvent;
 	import se.salomonsson.ttt.mediator.GameOptionsMediator;
 	import se.salomonsson.ttt.mediator.GridViewMediator;
 	import se.salomonsson.ttt.model.GridModel;
+	import se.salomonsson.ttt.model.PlayersModel;
 	import se.salomonsson.ttt.view.GameOptionsView;
 	import se.salomonsson.ttt.view.GridView;
 	
@@ -33,13 +35,14 @@ package se.salomonsson.ttt
 			mediatorMap.mapView( GameOptionsView, GameOptionsMediator );
 			
 			// Map commands
-			commandMap.mapEvent( ApplicationEvent.START_UP, RenderGridCommand ); // update grid at startup
+			commandMap.mapEvent( ApplicationEvent.START_UP, StartNewGameCommand );
 			commandMap.mapEvent( GameEvent.REQUEST_GRID_RE_RENDER, RenderGridCommand );
 			commandMap.mapEvent( GameEvent.CELL_SELECTED, UpdateGridStateCommand );
 			commandMap.mapEvent( GameEvent.RESET_GAME, ResetGameCommand );
 			
 			// Injections
 			injector.mapSingleton( GridModel );
+			injector.mapSingleton( PlayersModel );
 			
 			
 			addViewToDisplayList( new GridView(), 125, 5 );
