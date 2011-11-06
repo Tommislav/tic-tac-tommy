@@ -1,2 +1,2 @@
 obj
-ant/build.properties
+*.cache

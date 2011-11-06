@@ -16,8 +16,16 @@
 		</sequential>
 	</target>
 	
-	<target name="run">
-		<printinfo name="NOT IMPLEMENTED YET" />
+	<target name="compile">
+		
+		<compileWithPreloader className="Main" output="TicTacTommy.swf" debug="true" />
+		<!--<compile src="src/Main.as" output="TicTacTommy.swf" />-->
+	</target>
+	
+	<target name="run" depends="compile">
+		<exec executable="${flash.player}">
+			<arg line="${project.dir}/bin/TicTacTommy.swf" />
+		</exec>
 	</target>
 	<!--
 	<target name="all">
@@ -98,13 +106,13 @@
 					static-link-runtime-shared-libraries="true"
 					target-player="${player.version}" >
 				<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-				<load-config filename="${project.config}"/>
+				<load-config filename="${project.dir}/${project.config}"/>
 			</mxmlc>
 		</sequential>
 	</macrodef>
 	
 	<macrodef name="compileWithPreloader">
-		<attribute name="preloader" default="src/StandAlonePreloader.as"/>
+		<attribute name="preloader" default="src/Preloader.as"/>
 		<attribute name="className" default="NOT SET"/>
 		<attribute name="output" default="NOT SET"/>
 		<attribute name="debug" default="${debug}" />
@@ -125,7 +133,7 @@
 					target-player="${player.version}">
 			
 				<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-				<load-config filename="${project.dir}/ant/videoplayerbuildconfig.xml"/>
+				<load-config filename="${project.dir}/${project.config}"/>
 				
 				<define name="CONFIG::startFrame" value="'@{className}'" />
 				<frame label="start" classname="@{className}" />
@@ -168,7 +176,7 @@
 				<exclude-sources path-element="${project.dir}/src/se/salomonsson/ClassToExclude.as" />
 				
 				<load-config filename="${FLEX_HOME}/frameworks/flex-config.xml"/>
-				<load-config filename="${project.dir}/ant/videoplayerbuildconfig.xml"/>
+				<load-config filename="${project.dir}/${project.config}"/>
 				
 			</asdoc>
 		</sequential>

@@ -5,13 +5,17 @@
     <source-path append="true">
       <path-element>..\src</path-element>
       <path-element>..\test</path-element>
-      <!--<path-element>C:\Program Files (x86)\FlashDevelop\Library\AS3\classes</path-element>-->
     </source-path>
     <library-path append="true">
       <path-element>..\lib\test\flexunit-cilistener-4.1.0.swc</path-element>
       <path-element>..\lib\test\flexunit-core-flex-4.1.0.swc</path-element>
       <path-element>..\lib\test\Hamcrest.swc</path-element>
       <path-element>..\lib\test\LURunner-0.3.swc</path-element>
+      
+	  <path-element>..\lib\as3-signals-v0.7.swc</path-element>
+	  <path-element>..\lib\MinimalComps_0_9_10.swc</path-element>
+	  <path-element>..\lib\robotlegs-framework-v1.5.2.swc</path-element>
+	  
     </library-path>
   </compiler>
   
