@@ -31,7 +31,7 @@
 	<target name="all">
 		<sequential>
 			<compileWithPreloader className="TestPlayer" />
-			<compileWithPreloader className="HmDefaultPlayer" />
+			<compileWithPreloader className="DefaultPlayer" />
 			<compileSwc />
 		</sequential>
 	</target>
@@ -39,7 +39,7 @@
 	<target name="release" depends="version">
 		<sequential>
 			<compileWithPreloader className="TestPlayer" debug="false" bin="bin/release" />
-			<compileWithPreloader className="HmDefaultPlayer" debug="false" bin="bin/release" />
+			<compileWithPreloader className="DefaultPlayer" debug="false" bin="bin/release" />
 			<compileSwc debug="false" output="release/videomodule.swc" />
 			<antcall target="asdoc" />
 		</sequential>
@@ -119,13 +119,13 @@
 		<attribute name="bin" default="bin" />
 		
 		<sequential>
-			<printinfo name="Compile with preloader" src="'@{className}.as" output="@{bin}/@{className}.swf" debug="@{debug}" />
+			<printinfo name="Compile with preloader" src="'@{className}.as" output="@{bin}/@{output}" debug="@{debug}" />
 			
 			<mxmlc 	file="${project.dir}/@{preloader}" 
 					use-network="true" 
 					debug="@{debug}" 
 					keep-generated-actionscript="false" 
-					output="${project.dir}/@{bin}/@{className}.swf" 
+					output="${project.dir}/@{bin}/@{output}" 
 					incremental="true" 
 					benchmark="false" 
 					verbose-stacktraces="@{debug}" 
