@@ -1,2 +1,3 @@
 obj
-*.cache
+bin/*.cache
+ant/build.properties
