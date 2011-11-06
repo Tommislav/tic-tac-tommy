@@ -11,6 +11,7 @@ package se.salomonsson.ttt
 	import se.salomonsson.ttt.events.GameEvent;
 	import se.salomonsson.ttt.mediator.GameOptionsMediator;
 	import se.salomonsson.ttt.mediator.GridViewMediator;
+	import se.salomonsson.ttt.model.GameModel;
 	import se.salomonsson.ttt.model.GridModel;
 	import se.salomonsson.ttt.model.PlayersModel;
 	import se.salomonsson.ttt.view.GameOptionsView;
@@ -43,6 +44,7 @@ package se.salomonsson.ttt
 			// Injections
 			injector.mapSingleton( GridModel );
 			injector.mapSingleton( PlayersModel );
+			injector.mapSingleton( GameModel );
 			
 			
 			addViewToDisplayList( new GridView(), 125, 5 );

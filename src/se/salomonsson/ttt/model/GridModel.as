@@ -1,6 +1,7 @@
 package se.salomonsson.ttt.model 
 {
 	import org.robotlegs.mvcs.Actor;
+	import se.salomonsson.ttt.vo.GridVO;
 	
 	/**
 	 * Model that holds the 2d grid
@@ -51,6 +52,16 @@ package se.salomonsson.ttt.model
 		public function get grid():Array
 		{
 			return _grid.slice(); // return a copy of the array
+		}
+		
+		public function getGridVO():GridVO
+		{
+			var gridVO:GridVO 				= new GridVO();
+			gridVO.grid 					= this.grid;
+			gridVO.numberOfCellsHorizontal 	= this.numberOfCellsHorizontal;
+			gridVO.numberOfCellsVertical 	= this.numberOfCellsVertical;
+			
+			return gridVO;
 		}
 	}
 

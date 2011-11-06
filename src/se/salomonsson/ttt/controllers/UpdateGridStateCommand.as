@@ -4,6 +4,7 @@ package se.salomonsson.ttt.controllers
 	import org.robotlegs.mvcs.Command;
 	import se.salomonsson.ttt.events.GameEvent;
 	import se.salomonsson.ttt.events.RenderGridEvent;
+	import se.salomonsson.ttt.model.GameModel;
 	import se.salomonsson.ttt.model.GridModel;
 	import se.salomonsson.ttt.model.PlayersModel;
 	
@@ -14,6 +15,9 @@ package se.salomonsson.ttt.controllers
 	 */
 	public class UpdateGridStateCommand extends Command 
 	{
+		[Inject]
+		public var gameModel:GameModel;
+		
 		[Inject]
 		public var gridModel:GridModel;
 		
@@ -39,16 +43,23 @@ package se.salomonsson.ttt.controllers
 				var currentPlayer:int = playerModel.currentPlayerId;
 				gridModel.setValue( newPosition.x, newPosition.y, currentPlayer ); // update value on model
 				
-				// todo: check if we have a winner, else pass the turn to next player
-				
-				
 				// update visual GUI
 				dispatch( new GameEvent( GameEvent.REQUEST_GRID_RE_RENDER ) );
 				
 				
-				// new players turn
-				playerModel.nextPlayer();
-				dispatch( new GameEvent( GameEvent.PLAYER_TURN_CHANGED ) );
+				var win:Boolean = gameModel.gameLogic.checkWin( gridModel.getGridVO() );
+				if (win)
+				{
+					trace("WE HAVE A WINNER!! " + playerModel.currentPlayer.name);
+				}
+				else
+				{
+					// new players turn
+					playerModel.nextPlayer();
+					dispatch( new GameEvent( GameEvent.PLAYER_TURN_CHANGED ) );
+				}
+				
+				
 			}
 		}
 		
