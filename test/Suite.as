@@ -1,6 +1,7 @@
 package  
 {
 	import unittest.DummyTest;
+	import unittest.se.salomonsson.ttt.controllers.gamelogic.ThreeInARowLogicTest;
 	
 	/**
 	 * ...
@@ -12,6 +13,10 @@ package
 	{
 		
 		public var hamcrestDummyTest:DummyTest;
+		
+		
+		// Test game logic
+		public var threeInARowLogic:ThreeInARowLogicTest;
 		
 	}
 	
