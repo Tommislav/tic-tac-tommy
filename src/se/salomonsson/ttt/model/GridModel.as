@@ -63,6 +63,15 @@ package se.salomonsson.ttt.model
 			
 			return gridVO;
 		}
+		
+		public function isValidMove(x:int, y:int):Boolean
+		{
+			var validSpanX:Boolean 		= (x >= 0 || x < this.numberOfCellsHorizontal);
+			var validSpanY:Boolean 		= (y >= 0 || y < this.numberOfCellsVertical);
+			var cellIsEmpty:Boolean 	= (this.getValue( x, y ) == 0);
+			
+			return (validSpanX && validSpanY && cellIsEmpty);
+		}
 	}
 
 }

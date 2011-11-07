@@ -1,6 +1,7 @@
 package se.salomonsson.ttt.view 
 {
 	import flash.display.DisplayObject;
+	import flash.display.Shape;
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
 	import flash.geom.Point;
@@ -46,20 +47,33 @@ package se.salomonsson.ttt.view
 		
 		public function drawGrid(numCellsHorizontal:uint, numCellsVertical:uint, cells:Array):void
 		{
+			while (numChildren > 0)
+				removeChildAt(0); // clear symbols
+			
 			this.graphics.clear();
 			this.graphics.lineStyle( 1, 0x000000 );
 			this.graphics.beginFill( 0xffffff, 1 );
 			
-			var colors:Array = [0xffffff, 0xffcc00, 0xff00cc];
-			
 			for (var i:int = 0; i < cells.length; i++ )
 			{
 				var cellValue:int = cells[i];
-				this.graphics.beginFill( colors[cellValue], 1 );
 				
 				var y:Number = Math.floor(i / numCellsHorizontal) * _cellWidth;
 				var x:Number = (i % numCellsHorizontal) * _cellWidth;
 				this.graphics.drawRect( x, y, _cellWidth, _cellHeight );
+				
+				if (cellValue != 0)
+				{
+					var symbolWidth:Number = 20;
+					var offset:Number = (_cellWidth - 20) * 0.5;
+					
+					var symbol:Shape = new PlayerSymbol(cellValue);
+					symbol.x = x + offset;
+					symbol.y = y + offset;
+					symbol.width = symbolWidth;
+					symbol.height = symbolWidth;
+					addChild(symbol);
+				}
 			}
 		}
 		

@@ -2,6 +2,7 @@ package se.salomonsson.ttt.controllers
 {
 	import flash.geom.Point;
 	import org.robotlegs.mvcs.Command;
+	import se.salomonsson.ttt.enum.GameState;
 	import se.salomonsson.ttt.events.GameEvent;
 	import se.salomonsson.ttt.events.RenderGridEvent;
 	import se.salomonsson.ttt.model.GameModel;
@@ -35,10 +36,15 @@ package se.salomonsson.ttt.controllers
 			if (event == null)
 				throw new Error("Injected gameEvent instance is null...");
 			
+			// don't accept input if we are in game-over state
+			if (gameModel.gameState == GameState.GAME_OVER)
+				return;
+			
+			
 			var newPosition:Point = event.cell;
 			
 			// Make sure it's a valid move
-			if (isValidMove(newPosition.x, newPosition.y))
+			if (gridModel.isValidMove(newPosition.x, newPosition.y))
 			{
 				var currentPlayer:int = playerModel.currentPlayerId;
 				gridModel.setValue( newPosition.x, newPosition.y, currentPlayer ); // update value on model
@@ -50,27 +56,17 @@ package se.salomonsson.ttt.controllers
 				var win:Boolean = gameModel.gameLogic.checkWin( gridModel.getGridVO() );
 				if (win)
 				{
-					trace("WE HAVE A WINNER!! " + playerModel.currentPlayer.name);
+					// get the list of cells and highlight them
+					//...
+					
+					gameModel.gameState = GameState.GAME_OVER;
 				}
 				else
 				{
 					// new players turn
 					playerModel.nextPlayer();
-					dispatch( new GameEvent( GameEvent.PLAYER_TURN_CHANGED ) );
 				}
-				
-				
 			}
 		}
-		
-		private function isValidMove(x:int, y:int):Boolean
-		{
-			var validSpanX:Boolean 		= (x >= 0 || x < gridModel.numberOfCellsHorizontal);
-			var validSpanY:Boolean 		= (y >= 0 || y < gridModel.numberOfCellsVertical);
-			var cellIsEmpty:Boolean 	= (gridModel.getValue( x, y ) == 0);
-			
-			return (validSpanX && validSpanY && cellIsEmpty);
-		}
 	}
-
 }

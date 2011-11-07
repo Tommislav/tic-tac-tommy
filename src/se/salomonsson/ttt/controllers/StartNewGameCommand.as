@@ -14,7 +14,7 @@ package se.salomonsson.ttt.controllers
 	 */
 	public class StartNewGameCommand extends Command 
 	{
-		// Should not be set here... do it just to get it working... =9
+		// Should not be set here... do it just to get it working... =)
 		[Inject]
 		public var gameModel:GameModel;
 		
@@ -36,6 +36,7 @@ package se.salomonsson.ttt.controllers
 			players.clearPlayers();
 			players.addPlayer("Player 1", PlayerType.HUMAN );
 			players.addPlayer("Player 2", PlayerType.HUMAN );
+			players.setCurrentPlayerIndex(0);
 			
 			dispatch( new GameEvent(GameEvent.REQUEST_GRID_RE_RENDER) );
 		}

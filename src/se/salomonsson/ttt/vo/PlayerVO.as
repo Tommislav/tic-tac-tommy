@@ -9,7 +9,7 @@ package se.salomonsson.ttt.vo
 	{
 		public var name:String;
 		public var type:PlayerType;
-		public var index:int;
+		public var id:int;
 	}
 
 }

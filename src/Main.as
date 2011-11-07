@@ -7,7 +7,7 @@ package
 	import se.salomonsson.ttt.TicTacTommyContext;
 	
 	/**
-	 * ...
+	 * Main class. Creates the context.
 	 * @author Tommislav
 	 */
 	public class Main extends Sprite 
@@ -23,7 +23,6 @@ package
 		private function init(e:Event = null):void 	
 		{
 			removeEventListener(Event.ADDED_TO_STAGE, init);
-			// entry point
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;

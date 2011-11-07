@@ -9,13 +9,16 @@ package se.salomonsson.ttt
 	import se.salomonsson.ttt.controllers.UpdateGridStateCommand;
 	import se.salomonsson.ttt.events.ApplicationEvent;
 	import se.salomonsson.ttt.events.GameEvent;
+	import se.salomonsson.ttt.mediator.GameInfoViewMediator;
 	import se.salomonsson.ttt.mediator.GameOptionsMediator;
 	import se.salomonsson.ttt.mediator.GridViewMediator;
 	import se.salomonsson.ttt.model.GameModel;
 	import se.salomonsson.ttt.model.GridModel;
 	import se.salomonsson.ttt.model.PlayersModel;
+	import se.salomonsson.ttt.view.GameInfoView;
 	import se.salomonsson.ttt.view.GameOptionsView;
 	import se.salomonsson.ttt.view.GridView;
+	import se.salomonsson.ttt.view.IGameInfoView;
 	
 	/**
 	 * Map all dependencies in the application.
@@ -34,6 +37,7 @@ package se.salomonsson.ttt
 			// Map views
 			mediatorMap.mapView( GridView, GridViewMediator );
 			mediatorMap.mapView( GameOptionsView, GameOptionsMediator );
+			mediatorMap.mapView( GameInfoView, GameInfoViewMediator, IGameInfoView );
 			
 			// Map commands
 			commandMap.mapEvent( ApplicationEvent.START_UP, StartNewGameCommand );
@@ -47,7 +51,9 @@ package se.salomonsson.ttt
 			injector.mapSingleton( GameModel );
 			
 			
-			addViewToDisplayList( new GridView(), 125, 5 );
+			
+			addViewToDisplayList( new GameInfoView(), 125, 5 );
+			addViewToDisplayList( new GridView(), 125, 20 );
 			addViewToDisplayList( new GameOptionsView(), 5, 5 );
 			
 			dispatchEvent( new ApplicationEvent(ApplicationEvent.START_UP) );
