@@ -1,6 +1,6 @@
 package se.salomonsson.ttt.vo 
 {
-	import se.salomonsson.ttt.enum.PlayerType;
+	import se.salomonsson.ttt.enums.PlayerType;
 	/**
 	 * Data structure representing a player
 	 * @author Tommislav

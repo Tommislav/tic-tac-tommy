@@ -1,7 +1,7 @@
 package se.salomonsson.ttt.model 
 {
 	import org.robotlegs.mvcs.Actor;
-	import se.salomonsson.ttt.enum.PlayerType;
+	import se.salomonsson.ttt.enums.PlayerType;
 	import se.salomonsson.ttt.events.GameEvent;
 	import se.salomonsson.ttt.vo.PlayerVO;
 	

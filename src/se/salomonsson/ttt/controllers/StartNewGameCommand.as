@@ -2,7 +2,7 @@ package se.salomonsson.ttt.controllers
 {
 	import org.robotlegs.mvcs.Command;
 	import se.salomonsson.ttt.controllers.gamelogic.ThreeInARowLogic;
-	import se.salomonsson.ttt.enum.PlayerType;
+	import se.salomonsson.ttt.enums.PlayerType;
 	import se.salomonsson.ttt.events.GameEvent;
 	import se.salomonsson.ttt.model.GameModel;
 	import se.salomonsson.ttt.model.GridModel;

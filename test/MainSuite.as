@@ -9,7 +9,7 @@ package
 	 */
 	[Suite]
 	[RunWith("org.flexunit.runners.Suite")]	
-	public class Suite 
+	public class MainSuite 
 	{
 		
 		public var hamcrestDummyTest:DummyTest;

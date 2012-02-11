@@ -1,8 +1,10 @@
-package se.salomonsson.ttt 
+package se.salomonsson.ttt
 {
 	import flash.display.DisplayObject;
 	import flash.display.DisplayObjectContainer;
+
 	import org.robotlegs.mvcs.Context;
+
 	import se.salomonsson.ttt.controllers.RenderGridCommand;
 	import se.salomonsson.ttt.controllers.ResetGameCommand;
 	import se.salomonsson.ttt.controllers.StartNewGameCommand;
@@ -19,51 +21,50 @@ package se.salomonsson.ttt
 	import se.salomonsson.ttt.view.GameOptionsView;
 	import se.salomonsson.ttt.view.GridView;
 	import se.salomonsson.ttt.view.IGameInfoView;
-	
-	/**
+
+	 /**
 	 * Map all dependencies in the application.
 	 * @author Tommislav
 	 */
-	public class TicTacTommyContext extends Context 
+	public class TicTacTommyContext extends Context
 	{
-		
-		public function TicTacTommyContext(contextView:DisplayObjectContainer) 
+
+		public function TicTacTommyContext(contextView:DisplayObjectContainer)
 		{
 			super(contextView);
 		}
-		
-		override public function startup():void 
+
+		override public function startup():void
 		{
 			// Map views
-			mediatorMap.mapView( GridView, GridViewMediator );
-			mediatorMap.mapView( GameOptionsView, GameOptionsMediator );
-			mediatorMap.mapView( GameInfoView, GameInfoViewMediator, IGameInfoView );
-			
+			mediatorMap.mapView(GridView, GridViewMediator);
+			mediatorMap.mapView(GameOptionsView, GameOptionsMediator);
+			mediatorMap.mapView(GameInfoView, GameInfoViewMediator, IGameInfoView);
+
 			// Map commands
-			commandMap.mapEvent( ApplicationEvent.START_UP, StartNewGameCommand );
-			commandMap.mapEvent( GameEvent.REQUEST_GRID_RE_RENDER, RenderGridCommand );
-			commandMap.mapEvent( GameEvent.CELL_SELECTED, UpdateGridStateCommand );
-			commandMap.mapEvent( GameEvent.RESET_GAME, ResetGameCommand );
-			
+			commandMap.mapEvent(ApplicationEvent.START_UP, StartNewGameCommand);
+			commandMap.mapEvent(GameEvent.REQUEST_GRID_RE_RENDER, RenderGridCommand);
+			commandMap.mapEvent(GameEvent.CELL_SELECTED, UpdateGridStateCommand);
+			commandMap.mapEvent(GameEvent.RESET_GAME, ResetGameCommand);
+
 			// Injections
-			injector.mapSingleton( GridModel );
-			injector.mapSingleton( PlayersModel );
-			injector.mapSingleton( GameModel );
-			
-			
-			
-			addViewToDisplayList( new GameInfoView(), 125, 5 );
-			addViewToDisplayList( new GridView(), 125, 20 );
-			addViewToDisplayList( new GameOptionsView(), 5, 5 );
-			
-			dispatchEvent( new ApplicationEvent(ApplicationEvent.START_UP) );
+			injector.mapSingleton(GridModel);
+			injector.mapSingleton(PlayersModel);
+			injector.mapSingleton(GameModel);
+
+
+			addViewToDisplayList(new GameInfoView(), 125, 5);
+			addViewToDisplayList(new GridView(), 125, 20);
+			addViewToDisplayList(new GameOptionsView(), 5, 5);
+
+			dispatchEvent(new ApplicationEvent(ApplicationEvent.START_UP));
 		}
-		
-		private function addViewToDisplayList( view:DisplayObject, x:int, y:int ):void
+
+		private function addViewToDisplayList(view:DisplayObject, x:int, y:int):void
 		{
 			view.x = x;
 			view.y = y;
-			contextView.addChild( view );
+			contextView.addChild(view);
 		}
 	}
 

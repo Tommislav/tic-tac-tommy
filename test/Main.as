@@ -5,7 +5,7 @@ package
 	import flash.display.Sprite;
 	import org.flexunit.runner.FlexUnitCore;
 	import utils.TestStageGetter;
-	import Suite;
+	import MainSuite;
 	
 	/**
 	 * ...
@@ -30,7 +30,7 @@ package
 			_core.addListener( _runner );
 			addChild( _runner );
 			
-			_core.run( Suite );
+			_core.run( MainSuite );
 		}
 	}
 
